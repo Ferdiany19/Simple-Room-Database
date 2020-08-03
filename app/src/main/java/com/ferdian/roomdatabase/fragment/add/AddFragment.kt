@@ -11,8 +11,8 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.ferdian.roomdatabase.R
-import com.ferdian.roomdatabase.data.User
-import com.ferdian.roomdatabase.data.UserViewModel
+import com.ferdian.roomdatabase.model.User
+import com.ferdian.roomdatabase.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_add.view.*
 
@@ -44,7 +44,12 @@ class AddFragment : Fragment() {
 
         if(inputCheck(firstName, lastName, age)) {
             // Buat user object nya duli
-            val user = User(0,firstName, lastName, Integer.parseInt(age.toString()))
+            val user = User(
+                0,
+                firstName,
+                lastName,
+                Integer.parseInt(age.toString())
+            )
             // Masukin data ke Database
             mUserViewModel.addUser(user)
             Toast.makeText(requireContext(), "Successfully Added!", Toast.LENGTH_SHORT).show()

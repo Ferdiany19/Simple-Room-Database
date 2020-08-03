@@ -1,6 +1,8 @@
-package com.ferdian.roomdatabase.data
+package com.ferdian.roomdatabase.repository
 
 import androidx.lifecycle.LiveData
+import com.ferdian.roomdatabase.data.UserDao
+import com.ferdian.roomdatabase.model.User
 
 class UserRepository(private val userDao: UserDao) {
 
@@ -8,5 +10,9 @@ class UserRepository(private val userDao: UserDao) {
 
     suspend fun addData(user: User) {
         userDao.addUser(user)
+    }
+
+    suspend fun updateData(user: User) {
+        userDao.updateUser(user)
     }
 }

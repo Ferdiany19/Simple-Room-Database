@@ -1,9 +1,12 @@
-package com.ferdian.roomdatabase.data
+package com.ferdian.roomdatabase.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.ferdian.roomdatabase.data.UserDatabase
+import com.ferdian.roomdatabase.repository.UserRepository
+import com.ferdian.roomdatabase.model.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -13,7 +16,9 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
     private val repository: UserRepository
 
     init {
-        val userDao = UserDatabase.getDatabase(application).userDao()
+        val userDao = UserDatabase.getDatabase(
+            application
+        ).userDao()
         repository = UserRepository(userDao)
         readAllData = repository.readAllData
     }
@@ -21,6 +26,12 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
     fun addUser(user: User) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addData(user)
+        }
+    }
+
+    fun updateUser(user: User) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateData(user)
         }
     }
 }
